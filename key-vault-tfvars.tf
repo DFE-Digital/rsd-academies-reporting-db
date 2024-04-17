@@ -12,4 +12,6 @@ module "azurerm_key_vault" {
   enable_diagnostic_setting               = false
   enable_diagnostic_storage_account       = false
   tags                                    = local.tags
+
+  depends_on = [local.resource_group]
 }
