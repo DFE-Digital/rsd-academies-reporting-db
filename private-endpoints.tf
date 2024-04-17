@@ -20,7 +20,7 @@ resource "azurerm_subnet_route_table_association" "private_endpoint" {
 resource "azurerm_private_endpoint" "mssql" {
   for_each = local.private_endpoint_configurations
 
-  name                = "${local.resource_prefix}${each.key}"
+  name                = "${local.resource_prefix}-mssql.${azurerm_subnet.private_endpoint[each.key].name}"
   location            = data.azurerm_virtual_network.private_endpoints[each.key].location
   resource_group_name = local.resource_group.name
   subnet_id           = azurerm_subnet.private_endpoint[each.key].id
