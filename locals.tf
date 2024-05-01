@@ -15,13 +15,8 @@ locals {
   resource_group          = local.existing_resource_group == "" ? azurerm_resource_group.default[0] : data.azurerm_resource_group.existing_resource_group[0]
 
   # Networking
-  launch_in_vnet                     = var.launch_in_vnet
-  existing_virtual_network           = var.existing_virtual_network
-  virtual_network                    = local.existing_virtual_network == "" ? azurerm_virtual_network.default[0] : data.azurerm_virtual_network.existing_virtual_network[0]
-  virtual_network_address_space      = var.virtual_network_address_space
-  virtual_network_address_space_mask = element(split("/", local.virtual_network_address_space), 1)
-  mssql_private_endpoint_subnet_cidr = cidrsubnet(local.virtual_network_address_space, 23 - local.virtual_network_address_space_mask, 1)
-  private_endpoint_configurations    = var.private_endpoint_configurations
+  private_endpoint_configurations     = var.private_endpoint_configurations
+  adf_private_endpoint_configurations = var.adf_private_endpoint_configurations
 
   # SQL Server
   enable_mssql_database                           = var.enable_mssql_database

@@ -25,24 +25,6 @@ variable "existing_resource_group" {
   default     = ""
 }
 
-variable "launch_in_vnet" {
-  description = "Conditionally launch into a VNet"
-  type        = bool
-  default     = false
-}
-
-variable "existing_virtual_network" {
-  description = "Conditionally use an existing virtual network. The `virtual_network_address_space` must match an existing address space in the VNet. This also requires the resource group name."
-  type        = string
-  default     = ""
-}
-
-variable "virtual_network_address_space" {
-  description = "Virtual Network address space CIDR"
-  type        = string
-  default     = "172.16.0.0/12"
-}
-
 variable "enable_mssql_database" {
   description = "Set to true to create an Azure SQL server/database, with a private endpoint within the virtual network"
   type        = bool
