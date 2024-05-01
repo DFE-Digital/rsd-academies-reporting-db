@@ -17,6 +17,16 @@ resource "azurerm_subnet_route_table_association" "private_endpoint" {
   route_table_id = data.azurerm_route_table.private_endpoints[each.key].id
 }
 
+resource "azurerm_data_factory_managed_private_endpoint" "mssql" {
+  for_each = local.adf_private_endpoint_configurations
+
+  name               = "${local.resource_prefix}-mssql.${each.key}"
+  data_factory_id    = each.value
+  target_resource_id = azurerm_mssql_server.default[0].id
+  subresource_name   = "sqlServer"
+  fqdns              = ["${azurerm_mssql_server.default[0].name}.database.windows.net"]
+}
+
 resource "azurerm_private_endpoint" "mssql" {
   for_each = local.private_endpoint_configurations
 

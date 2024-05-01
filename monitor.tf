@@ -217,8 +217,8 @@ resource "azurerm_monitor_metric_alert" "sql_failed_user" {
   resource_group_name = local.resource_group.name
   scopes              = [azurerm_mssql_database.default[0].id]
   description         = "Failed connections (user errors)"
-  window_size         = "PT5M"
-  frequency           = "PT15M"
+  window_size         = "PT15M"
+  frequency           = "PT5M"
   severity            = 2
 
   dynamic_criteria {
@@ -227,58 +227,6 @@ resource "azurerm_monitor_metric_alert" "sql_failed_user" {
     aggregation       = "Total"
     operator          = "GreaterThan"
     alert_sensitivity = "Medium"
-  }
-
-  action {
-    action_group_id = azurerm_monitor_action_group.main[0].id
-  }
-
-  tags = local.tags
-}
-
-resource "azurerm_monitor_metric_alert" "sql_failed_system" {
-  count = local.enable_monitoring && local.enable_mssql_database ? 1 : 0
-
-  name                = "${local.resource_prefix}-sql-failed-system"
-  resource_group_name = local.resource_group.name
-  scopes              = [azurerm_mssql_database.default[0].id]
-  description         = "Failed connections (system errors)"
-  window_size         = "PT5M"
-  frequency           = "PT1M"
-  severity            = 2
-
-  criteria {
-    metric_namespace = "Microsoft.Sql/servers/databases"
-    metric_name      = "connection_failed_system_error"
-    aggregation      = "Total"
-    operator         = "GreaterThan"
-    threshold        = 10
-  }
-
-  action {
-    action_group_id = azurerm_monitor_action_group.main[0].id
-  }
-
-  tags = local.tags
-}
-
-resource "azurerm_monitor_metric_alert" "sql_rate" {
-  count = local.enable_monitoring && local.enable_mssql_database ? 1 : 0
-
-  name                = "${local.resource_prefix}-sql-rate"
-  resource_group_name = local.resource_group.name
-  scopes              = [azurerm_mssql_database.default[0].id]
-  description         = "Anomalous connection rate"
-  window_size         = "PT15M"
-  frequency           = "PT5M"
-  severity            = 2
-
-  dynamic_criteria {
-    metric_namespace  = "Microsoft.Sql/servers/databases"
-    metric_name       = "connection_failed_system_error"
-    aggregation       = "Total"
-    operator          = "GreaterOrLessThan"
-    alert_sensitivity = "Low"
   }
 
   action {

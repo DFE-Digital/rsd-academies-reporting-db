@@ -28,7 +28,7 @@ variable "existing_resource_group" {
 variable "launch_in_vnet" {
   description = "Conditionally launch into a VNet"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "existing_virtual_network" {
@@ -191,4 +191,10 @@ variable "private_endpoint_configurations" {
     create_acr_privatelink_dns_zone = optional(bool, true)
   }))
   default = {}
+}
+
+variable "adf_private_endpoint_configurations" {
+  description = "Key value pair. Specify the Key as the ADF Name, and the value as the ADF Resource ID"
+  type        = map(string)
+  default     = {}
 }
