@@ -61,7 +61,6 @@ jobs:
           tflint_version: v0.44.1
 
       - name: Run TFLint
-        working-directory: terraform
         run: tflint -f compact
 
       - name: Run TFSec
