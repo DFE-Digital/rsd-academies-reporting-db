@@ -14,6 +14,12 @@
 | <a name="provider_azapi"></a> [azapi](#provider\_azapi) | 1.12.1 |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.99.0 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_azurerm_key_vault"></a> [azurerm\_key\_vault](#module\_azurerm\_key\_vault) | github.com/DFE-Digital/terraform-azurerm-key-vault-tfvars | v0.4.1 |
+
 ## Resources
 
 | Name | Type |
